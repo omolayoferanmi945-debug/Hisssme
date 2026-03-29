@@ -1,263 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dinero @ 30 💜</title>
-  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Sacramento&family=Great+Vibes&display=swap" rel="stylesheet">
-  <style>
-    /* Global Styles */
-    body {
-      margin: 0;
-      font-family: 'Sacramento', cursive;
-      background: radial-gradient(circle at top, #ffe6f0, #ffe0e0);
-      overflow-x: hidden;
-      position: relative;
-    }
-    h1,h2,h3,h4 { text-align:center; margin:15px 0; word-break: break-word; }
-    .center { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
-    img { max-width:90%; height:auto; border-radius:20px; box-shadow:0 0 30px pink; margin:20px 0; position:relative; z-index:1; }
-    button { padding:10px 20px; font-size:16px; margin:8px; border-radius:15px; border:none; cursor:pointer; background:#ff8fc0; color:white; transition:0.3s; word-break: break-word; }
-    button:hover { background:#ff5fa1; transform:scale(1.05); }
-    .section { opacity:0; transform:translateY(50px); transition: all 1s ease-out; padding:25px 15px; margin:15px auto; max-width:900px; background: rgba(255,255,255,0.85); border-radius:20px; box-shadow:0 0 20px pink; word-wrap: break-word; }
-    .visible { opacity:1; transform:translateY(0); }
-    .popup { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#fff0f5; padding:20px; border-radius:20px; display:none; z-index:9999; text-align:center; box-shadow:0 0 40px pink; width:80%; max-width:400px; }
-    .close { cursor:pointer; font-weight:bold; font-size:18px; margin-top:10px; display:inline-block; color:#ff5fa1; }
-    .floating-heart { position:absolute; width:20px; height:20px; background:url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/cover; pointer-events:none; animation:float 5s linear infinite; z-index:10; }
-    @keyframes float { 0%{transform:translateY(0) rotate(0deg);} 100%{transform:translateY(-1000px) rotate(360deg);} }
-    .confetti-piece { position:absolute; width:8px; height:8px; background:pink; opacity:0.8; pointer-events:none; animation:confetti-fall linear infinite; z-index:5; }
-    @keyframes confetti-fall { 0%{transform:translateY(-10px) rotate(0deg);} 100%{transform:translateY(100vh) rotate(360deg);} }
-    ul{list-style:none; padding:0;} li{margin:5px 0;}
-    /* Floating words on picture */
-    .floating-text { position:absolute; color:white; font-weight:bold; font-family:'Parisienne', cursive; font-size:1.2rem; text-shadow:0 0 5px pink; pointer-events:none; animation:floatWords 10s linear infinite; }
-    @keyframes floatWords { 0%{transform:translateY(0) rotate(0deg);} 100%{transform:translateY(-300px) rotate(360deg);} }
-    /* Responsive Mobile Adjustments */
-    @media(max-width:768px){ h1{font-size:1.8rem;} h2{font-size:1.4rem;} h3{font-size:1.2rem;} button{font-size:14px; padding:8px 16px;} .section{padding:20px 10px; margin:10px auto;} .popup{padding:15px; font-size:14px;} img{max-width:95%;} }
-    @media(max-width:480px){ h1{font-size:1.5rem;} h2{font-size:1.2rem;} h3{font-size:1rem;} button{font-size:12px; padding:6px 12px;} .section{padding:15px 8px; margin:8px auto;} }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Dinero 💜</title>
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Parisienne&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  * {margin:0; padding:0; box-sizing:border-box; font-family: 'Sacramento', cursive;}
+  body {background:#fff0f5; color:#4b0082; line-height:1.6; overflow-x:hidden;}
+  h1, h2, h3, h4 {color:#ff1493;}
+  .section {padding:2rem; text-align:center; position:relative;}
+  .button {padding:0.7rem 1.5rem; margin:1rem; background:#ff69b4; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:1.1rem; transition:0.3s; display:inline-block;}
+  .button:hover {background:#ff1493;}
+  .picture {position:relative; display:inline-block; margin:2rem 0;}
+  .picture img {max-width:80%; height:auto; border-radius:15px; box-shadow:0 0 20px rgba(255,20,147,0.5);}
+  .overlay-text {position:absolute; top:10%; left:50%; transform:translateX(-50%); color:#fff; font-family:'Great Vibes', cursive; font-size:2rem; text-shadow:2px 2px 8px #ff69b4;}
+  .popup {position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff0f5; padding:2rem; border:3px solid #ff1493; border-radius:15px; display:none; z-index:9999; max-width:90%;}
+  .close-popup {cursor:pointer; background:#ff69b4; color:#fff; border:none; padding:0.5rem 1rem; border-radius:8px; margin-top:1rem;}
+  .heart {position:absolute; width:20px; height:20px; background:red; transform:rotate(45deg); animation:float 6s linear infinite;}
+  .heart::before, .heart::after {content:""; position:absolute; width:20px; height:20px; background:red; border-radius:50%;}
+  .heart::before {top:-10px; left:0;}
+  .heart::after {left:10px; top:0;}
+  @keyframes float {0% {transform:translateY(0) rotate(45deg);}100% {transform:translateY(-800px) rotate(45deg);}}
+  .section-content {max-width:800px; margin:0 auto;}
+  ul {text-align:left; display:inline-block; margin-top:1rem;}
+  li {margin-bottom:0.5rem;}
+</style>
 </head>
 <body>
 
-<!-- HERO -->
-<div class="section center">
+<!-- Hero Section -->
+<div class="section" id="hero">
   <h1>Happy Birthday Babbyyyyyyy 😚🎉</h1>
   <h2>My one and only 💜</h2>
-  <h3>D.I.N.E.R.O</h3>
-  <p>Delightful, Irresistible, Noble, Energetic, Radiates charm, One and only for me 💖</p>
 </div>
 
-<!-- PICTURE SECTION -->
-<div class="section center" style="position:relative;">
-  <img src="https://raw.githubusercontent.com/omolayoferanmi945-debug/Hisssme/main/IMG-20260202-WA0054.jpg" alt="My Sweet Man">
-  <div class="floating-text" style="left:10%; animation-delay:0s;">My Love 💜</div>
-  <div class="floating-text" style="left:50%; animation-delay:2s;">Irresistible 😏</div>
-  <div class="floating-text" style="left:70%; animation-delay:4s;">My King 👑</div>
+<!-- Picture Section -->
+<div class="section" id="picture">
+  <div class="picture">
+    <img src="https://raw.githubusercontent.com/omolayoferanmi945-debug/Hisssme/main/IMG-20260202-WA0054.jpg" alt="My Sweet Man">
+    <div class="overlay-text">My love, my heart, my everything 💜</div>
+  </div>
 </div>
 
-<!-- VOICE NOTE -->
-<div class="section center">
-  <button onclick="playVoice()">Come closer… I have something for you 😏💜</button>
+<!-- Voice Note Section -->
+<div class="section" id="voice-note">
+  <button class="button" onclick="document.getElementById('voice').play()">Come closer… I have something for you 😏💜</button>
   <audio id="voice" src="https://raw.githubusercontent.com/omolayoferanmi945-debug/Hisssme/main/birthday_vn"></audio>
 </div>
 
-<!-- MAIN MESSAGE -->
-<div class="section">
-  <p>Happy birthday baby 💜 Even tho this hasn't been the way I planned it, I just want you to know that you deserve the world…</p>
-  <p>Don’t worry we will all be comfortable living in space 🌚 so you can have the world to yourself.</p>
-  <p>You such a great and sweet human tho you make me doubt that sometimes… that’s what makes everything feel so real.</p>
-  <p>Thank you for always showing up… at your time, in your way… thank you for being you.</p>
-  <p>My brief meeting with you made me realize how ambitious you are, how you prioritize your goals, and how far you’ve come to be 30.</p>
-  <p>And honestly… I admire you more than I say out loud.</p>
-  <p>I pray our bond grows like peptide bonds… strong, unbreakable, and lasting 💜</p>
+<!-- Main Message -->
+<div class="section" id="main-message">
+  <div class="section-content">
+    <p>Happy birthday baby 💜 Even tho this hasn't been the way I planned it buh I just want you to know that you deserve the world…</p>
+    <p>Don’t worry we will all be comfortable living in space 🌚 so you can have the world to yourself.</p>
+    <p>You such a great and sweet human tho you make me doubt that sometimes… that’s what makes everything feel so real.</p>
+    <p>Thank you for always showing up… at your time, in your way… thank you for being you.</p>
+    <p>My brief meeting with you made me realize how ambitious you are, how you prioritize your goals, and how far you’ve come to be 30.</p>
+    <p>And honestly… I admire you more than I say out loud.</p>
+    <p>I pray our bond grows like peptide bonds… strong, unbreakable, and lasting 💜</p>
+  </div>
 </div>
 
-<!-- THE MAN HE IS -->
-<div class="section">
-  <h2>The Man You Are at 30</h2>
-  <ul>
-    <li>Focused</li>
-    <li>Intentional</li>
-    <li>Confident</li>
-    <li>You know what you want… and you go for it</li>
-    <li>You really like yourself… and honestly, you have every reason to 😌</li>
-  </ul>
+<!-- HIM Section -->
+<div class="section" id="him">
+  <h2>The Man You Are 💪</h2>
+  <div class="section-content">
+    <h3>Presence & Confidence</h3>
+    <p>You enter a room and people notice… your confidence speaks even before you say a word. You carry yourself with poise, swag, and humility. You know your worth and let it shine.</p>
+    <h3>Mind & Ambition</h3>
+    <p>Your mind is sharp, focused, and always working towards something meaningful. You plan, prioritize, and act intentionally. You’re ambitious without arrogance.</p>
+    <h3>Energy & Vibe</h3>
+    <p>Calm but magnetic. Confident but not loud. Your energy inspires and warms everyone around you.</p>
+    <h3>Charm & Presence</h3>
+    <p>Your smile, your gestures, your very being… irresistible. Playful when needed, serious when needed. Balanced and captivating.</p>
+    <h3>Emotional Intelligence</h3>
+    <p>You understand people and situations better than most. Intuition guides you. Presence feels safe and comforting.</p>
+    <h3>Physical & Sensual Appeal</h3>
+    <p>Irresistible 😏. Your body language, your smile, your smell… intimate moments with you linger forever.</p>
+    <h3>Humor & Fun Side</h3>
+    <p>You make me laugh, tease me playfully, and keep things lively. Serious moments feel lighter because of you.</p>
+    <h3>Loyalty & Integrity</h3>
+    <p>You are loyal, protective, and honorable. Actions match intentions. Rare and admirable.</p>
+  </div>
 </div>
 
-<!-- BUTTONS / INTERACTIVE SECTIONS -->
-<div class="section center">
-  <button onclick="showSection('reasons')">💖 50 Reasons I Love You</button>
-  <button onclick="showSection('prayers')">🙏 Prayers</button>
-  <button onclick="showSection('flirty')">😏 Flirty & Playful</button>
-  <button onclick="showSection('loveDo')">💋 What I Love When You Do…</button>
-  <button onclick="showSection('selfCare')">🌱 Things You Should Do More</button>
-  <button onclick="showSection('withYou')">💞 With You… I Want</button>
-  <button onclick="showSection('longing')">🫂 The Way I Miss You Sometimes</button>
-  <button onclick="showSection('gift')">🎁 Surprise / Fake Gift</button>
+<!-- 50 Reasons Section -->
+<div class="section" id="reasons">
+  <h2>50 Reasons I Love You 💖</h2>
+  <div class="section-content">
+    <ul>
+      <li>You make me feel things I can’t explain</li>
+      <li>You challenge me</li>
+      <li>You make me blush 😏</li>
+      <li>You’re ambitious</li>
+      <li>You’re soft in your own way</li>
+      <li>You make love feel real</li>
+      <li>You smell amazing 💜</li>
+      <li>You laugh like no one else</li>
+      <li>You show effort in everything</li>
+      <li>You inspire me</li>
+      <li>You protect what you love</li>
+      <li>You have style and presence</li>
+      <li>You surprise me constantly</li>
+      <li>You’re cocky but lovable</li>
+      <li>You care deeply</li>
+      <li>You remember small details</li>
+      <li>You make me feel wanted</li>
+      <li>You respect me</li>
+      <li>You’re confident without being loud</li>
+      <li>You prioritize goals</li>
+      <li>You make life exciting</li>
+      <li>You’re patient in ways I admire</li>
+      <li>You love without fear</li>
+      <li>You accept me as I am</li>
+      <li>You make intimacy feel magical</li>
+      <li>You’re romantic</li>
+      <li>You challenge me to grow</li>
+      <li>You have a great sense of humor</li>
+      <li>You are generous</li>
+      <li>You communicate with intention</li>
+      <li>You show vulnerability</li>
+      <li>You surprise me in small ways</li>
+      <li>You protect your peace</li>
+      <li>You are playful</li>
+      <li>You love with your whole heart</li>
+      <li>You’re reliable</li>
+      <li>You’re adventurous</li>
+      <li>You’re supportive</li>
+      <li>You’re charming</li>
+      <li>You make me feel safe</li>
+      <li>You respect boundaries</li>
+      <li>You love intensely</li>
+      <li>You’re honest</li>
+      <li>You have unique opinions</li>
+      <li>You’re inspiring</li>
+      <li>You’re motivating</li>
+      <li>You’re creative</li>
+      <li>You make every day brighter</li>
+      <li>You listen deeply</li>
+      <li>You make me feel cherished</li>
+      <li>You’re simply… you 💜</li>
+    </ul>
+  </div>
 </div>
 
-<!-- Hidden Sections -->
-<div id="reasons" class="section" style="display:none;">
-  <h2>50 Reasons I Love You</h2>
-  <ul>
-    <li>You make me feel things I can’t explain</li>
-    <li>You challenge me</li>
-    <li>You make me blush 😏</li>
-    <li>You’re ambitious</li>
-    <li>You’re soft in your own way</li>
-    <li>You make love feel real</li>
-    <li>I enjoyed our sex too 😏</li>
-    <li>You smell amazing 💜</li>
-    <!-- Add all 50 reasons here -->
-  </ul>
+<!-- Prayers Section -->
+<div class="section" id="prayers">
+  <h2>Prayers for You 🙏</h2>
+  <div class="section-content">
+    <p>I pray for your <strong>health</strong>, <strong>wealth</strong>, <strong>success</strong>, <strong>happiness</strong>, <strong>love</strong>, <strong>growth</strong></p>
+    <p>I pray for your <strong>past</strong>—may it never hold you back</p>
+    <p>I pray for your <strong>present</strong>—may you find peace and joy</p>
+    <p>I pray for your <strong>future</strong>—may it become everything you deserve 💜</p>
+    <p>May all your dreams align with your heart, and may you continue to shine brighter every day ✨</p>
+  </div>
 </div>
 
-<div id="prayers" class="section" style="display:none;">
-  <h2>Prayers for You 💜</h2>
-  <ul>
-    <li>I pray for your health</li>
-    <li>I pray for your wealth</li>
-    <li>I pray for your success</li>
-    <li>I pray for your happiness</li>
-    <li>I pray for your love</li>
-    <li>I pray for your growth</li>
-    <li>I pray for your past — that it never holds you back</li>
-    <li>I pray for your present — that you find peace</li>
-    <li>I pray for your future — that it becomes everything you deserve 💜</li>
-    <li>I pray that your ambitions always lead you to joy</li>
-    <li>I pray our bond strengthens every day</li>
-  </ul>
-</div>
-
-<div id="flirty" class="section" style="display:none;">
+<!-- Flirty Section -->
+<div class="section" id="flirty">
   <h2>Flirty & Playful 😏</h2>
-  <ul>
-    <li>Come closer 😏</li>
-    <li>Stop being so irresistible</li>
-    <li>You make me blush more than I admit</li>
-    <li>You’re mine… behave 💋</li>
-    <li>Don’t act like you don’t like me</li>
-    <li>I enjoyed every moment we were close… yes, all of it 😏💜</li>
-  </ul>
+  <div class="section-content">
+    <p>Come closer 😏</p>
+    <p>Stop being so irresistible</p>
+    <p>You make me blush more than I admit</p>
+    <p>You’re mine… behave 💋</p>
+    <p>Don’t act like you don’t like me</p>
+    <p>I enjoyed every moment we were close… yes, all of it 😏💜</p>
+    <p>I love your smell 💜</p>
+  </div>
 </div>
 
-<div id="loveDo" class="section" style="display:none;">
-  <h2>What I Love When You Do… 💋</h2>
-  <ul>
-    <li>I love when you look at me like that</li>
-    <li>I love when you’re soft with me</li>
-    <li>I love when you show effort</li>
-    <li>I love when you make me feel like I matter</li>
-    <li>I love your smell… it stays with me 💜</li>
-  </ul>
+<!-- What I Love When You Do -->
+<div class="section" id="love-when-you-do">
+  <h2>What I Love When You Do… 💖</h2>
+  <div class="section-content">
+    <ul>
+      <li>You look at me like that</li>
+      <li>You’re soft with me</li>
+      <li>You show effort</li>
+      <li>You make me feel like I matter</li>
+      <li>You touch me in ways I crave 💜</li>
+    </ul>
+  </div>
 </div>
 
-<div id="selfCare" class="section" style="display:none;">
+<!-- Things You Should Do More -->
+<div class="section" id="self-care">
   <h2>Things You Should Do More 🌱</h2>
-  <ul>
-    <li>Take care of yourself</li>
-    <li>Rest</li>
-    <li>Go out</li>
-    <li>Have fun</li>
-    <li>Explore your hobbies</li>
-    <li>Sleep better 😴</li>
-    <li>Protect your peace</li>
-  </ul>
+  <div class="section-content">
+    <ul>
+      <li>Take care of yourself</li>
+      <li>Rest</li>
+      <li>Go out</li>
+      <li>Have fun</li>
+      <li>Explore your hobbies</li>
+      <li>Sleep better 😴</li>
+      <li>Protect your peace</li>
+    </ul>
+  </div>
 </div>
 
-<div id="withYou" class="section" style="display:none;">
+<!-- With You… I Want -->
+<div class="section" id="with-you">
   <h2>With You… I Want 💞</h2>
-  <ul>
-    <li>Spend more time with me 💖</li>
-    <li>More dates</li>
-    <li>More memories</li>
-    <li>More intentional moments</li>
-    <li>More softness</li>
-    <li>Just… more of us</li>
-  </ul>
+  <div class="section-content">
+    <ul>
+      <li>Spend more time with me 💖</li>
+      <li>More dates</li>
+      <li>More memories</li>
+      <li>More intentional moments</li>
+      <li>Just… more of us</li>
+    </ul>
+  </div>
 </div>
 
-<div id="longing" class="section" style="display:none;">
+<!-- Longing / Memories -->
+<div class="section" id="longing">
   <h2>The Way I Miss You Sometimes 🫂</h2>
-  <p>Sometimes I miss you in ways I don’t even say</p>
-  <p>I want your presence… your warmth</p>
-  <p>I think about you more than I admit</p>
-  <p>And sometimes… I just want you, simply and completely 💜</p>
+  <div class="section-content">
+    <p>Sometimes I miss you in ways I don’t even say</p>
+    <p>I want your presence… your warmth</p>
+    <p>I think about you more than I admit</p>
+    <p>Last night talks, late night calls, visits… moments that linger 💜</p>
+  </div>
 </div>
 
-<div id="gift" class="section" style="display:none;">
-  <h2>🎁 Surprise / Fake Gift</h2>
+<!-- Surprise Popups -->
+<div class="popup" id="popup1">
+  <p>You thought I was done? 😏💜</p>
+  <button class="close-popup" onclick="closePopup('popup1')">Close</button>
+</div>
+<div class="popup" id="popup2">
+  <p>Come here… I’m not finished with you yet 💋</p>
+  <button class="close-popup" onclick="closePopup('popup2')">Close</button>
+</div>
+
+<!-- DINERO Acronym -->
+<div class="section" id="acronym">
+  <h2>DINERO 💜</h2>
   <ul>
-    <li>A lifetime of my attention 😏💜</li>
-    <li>Your favorite kisses 💋</li>
-    <li>Unlimited hugs 🫂</li>
-    <li>A private concert of your favorite songs 🎶</li>
+    <li>D = Dedicated 💜</li>
+    <li>I = Intelligent ✨</li>
+    <li>N = Noble 😏</li>
+    <li>E = Energetic 💫</li>
+    <li>R = Romantic 💖</li>
+    <li>O = Outstanding 💜</li>
   </ul>
 </div>
 
-<div class="section center">
-  <h2>I love you to the moon and back 🌙💜</h2>
-  <h3>And if I could… I’d buy the whole world just for you 🌍</h3>
+<!-- Closing -->
+<div class="section" id="closing">
+  <h2>I Love You to the Moon and Back 🌙💜</h2>
+  <p>And if I could… I’d buy the whole world just for you 🌍</p>
 </div>
 
-<div id="popup" class="popup">
-  <p id="popup-text">You thought I was done? 😏💜</p>
-  <span class="close" onclick="closePopup()">Close</span>
-</div>
-
+<!-- Floating Hearts -->
 <script>
-  // Scroll animation
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('visible'); } });
-  }, {threshold:0.2});
-  document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 500);
 
-  // Voice note play
-  function playVoice(){ document.getElementById('voice').play(); }
-
-  // Show section
-  function showSection(id){
-    ['reasons','prayers','flirty','loveDo','selfCare','withYou','longing','gift'].forEach(s=>{
-      document.getElementById(s).style.display = (s===id?'block':'none');
-    });
-    showPopup(id);
-  }
-
-  // Popup messages
-  const popupMessages = [
-    "You thought I was done? 😏💜",
-    "Come here… I’m not finished with you yet 💋",
-    "You mean more to me than I say",
-    "You’re special… don’t forget that"
-  ];
-  function showPopup(){ 
-    const popup=document.getElementById('popup');
-    const text=document.getElementById('popup-text');
-    text.textContent=popupMessages[Math.floor(Math.random()*popupMessages.length)];
-    popup.style.display='block';
-    setTimeout(()=>popup.style.display='none',4000);
-  }
-  function closePopup(){ document.getElementById('popup').style.display='none'; }
-
-  // Confetti
-  for(let i=0;i<50;i++){
-    let c=document.createElement('div');
-    c.classList.add('confetti-piece');
-    c.style.left=Math.random()*window.innerWidth+'px';
-    c.style.backgroundColor=['#ff8fc0','#ff5fa1','#ffc0cb','#ffe6f0'][Math.floor(Math.random()*4)];
-    c.style.animationDuration=2+Math.random()*3+'s';
-    document.body.appendChild(c);
-  }
-
-  // Floating hearts
-  setInterval(()=>{
-    let heart=document.createElement('div');
-    heart.classList.add('floating-heart');
-    heart.style.left=Math.random()*window.innerWidth+'px';
-    heart.style.width=20+Math.random()*20+'px';
-    heart.style.height=20+Math.random()*20+'px';
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),5000);
-  },500);
+function openPopup(id) {
+  document.getElementById(id).style.display = 'block';
+}
+function closePopup(id) {
+  document.getElementById(id).style.display = 'none';
+}
+// Optional: popups appear randomly
+setInterval(() => {
+  const popups = ['popup1','popup2'];
+  const random = popups[Math.floor(Math.random()*popups.length)];
+  openPopup(random);
+}, 15000);
 </script>
 
 </body>
