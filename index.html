@@ -1,341 +1,579 @@
-// App.jsx
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Float, Text } from "@react-three/drei";
-import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
-import Confetti from "./Confetti";
-import Sparkles from "./Sparkles";
-
-// Floating hearts in 3D
-function FloatingHearts() {
-  return (
-    <group>
-      {Array.from({ length: 25 }).map((_, i) => (
-        <Float key={i} speed={2} rotationIntensity={2} floatIntensity={4}>
-          <mesh
-            position={[
-              Math.random() * 8 - 4,
-              Math.random() * 6 - 3,
-              Math.random() * -6,
-            ]}
-          >
-            <sphereGeometry args={[0.2, 32, 32]} />
-            <meshStandardMaterial color="#ff4da6" />
-          </mesh>
-        </Float>
-      ))}
-    </group>
-  );
-}
-
-// 3D birthday text
-function BirthdayText() {
-  return (
-    <Float>
-      <Text fontSize={0.6} color="#ffffff" anchorX="center" anchorY="middle">
-        Happy 30th Dinero 🎉
-      </Text>
-    </Float>
-  );
-}
-
-export default function App() {
-  const [view, setView] = useState(null);
-  const voiceRef = useRef(null);
-
-  useEffect(() => {
-    if (view === "voice") {
-      voiceRef.current.play();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dinero @ 30 💜</title>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Sacramento&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Sacramento', cursive;
+      background: radial-gradient(circle at top, #ffe6f0, #ffe0e0);
+      overflow-x: hidden;
+      position: relative;
     }
-  }, [view]);
+    h1, h2, h3, h4 {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    img {
+      max-width: 80%;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dinero @ 30 💜</title>
+  <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Sacramento&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Sacramento', cursive;
+      background: radial-gradient(circle at top, #ffe6f0, #ffe0e0);
+      overflow-x: hidden;
+      position: relative;
+    }
+    h1, h2, h3, h4 {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    img {
+      max-width: 80%;
+      border-radius: 20px;
+      box-shadow: 0 0 30px pink;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+      background: #ff8fc0;
+      color: white;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #ff5fa1;
+      transform: scale(1.05);
+    }
+    .section {
+      padding: 30px 20px;
+      margin: 20px auto;
+      max-width: 900px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 20px;
+      box-shadow: 0 0 20px pink;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff0f5;
+      padding: 30px;
+      border-radius: 20px;
+      display: none;
+      z-index: 9999;
+      text-align: center;
+      box-shadow: 0 0 40px pink;
+    }
+    .close {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 15px;
+      display: inline-block;
+      color: #ff5fa1;
+    }
+    .floating-heart {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/cover;
+      pointer-events: none;
+      animation: float 5s linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg);}
+      100% { transform: translateY(-1000px) rotate(360deg);}
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: pink;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: confetti-fall linear infinite;
+    }
+    @keyframes confetti-fall {
+      0% { transform: translateY(-10px) rotate(0deg);}
+      100% { transform: translateY(100vh) rotate(360deg);}
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
 
-  // 50 reasons why you love him
-  const reasons = [
-    "You make me feel safe 💜",
-    "Your ambition inspires me",
-    "You show up in your own way",
-    "You make me smile unexpectedly",
-    "Your mind is attractive",
-    "You challenge me",
-    "You make me feel wanted",
-    "Your growth is beautiful",
-    "You are soft even when you hide it",
-    "You’re different in a good way",
-    "You make me think deeper",
-    "You’re unpredictable 😏",
-    "You care even when you’re quiet",
-    "You make effort",
-    "You listen sometimes 😂",
-    "You make memories feel special",
-    "You’re strong",
-    "You’re focused",
-    "You make me feel deeply",
-    "You’re worth it",
-    "You make love feel real",
-    "You’re growing",
-    "You don’t give up",
-    "You’re intentional",
-    "You make me soft",
-    "You make me laugh",
-    "You’re calm when needed",
-    "You’re fire when needed",
-    "You balance me",
-    "You’re mine 😏",
-    "You try",
-    "You’re unique",
-    "You’re becoming great",
-    "You’re patient",
-    "You’re worth loving",
-    "You make me dream",
-    "You’re my sweet man 💖",
-    "You’re real",
-    "You’re imperfectly perfect",
-    "You’re worth waiting for",
-    "You make me curious",
-    "You’re an experience",
-    "You make me feel seen",
-    "You make me want more",
-    "You’re my peace",
-    "You’re my chaos",
-    "You make love interesting",
-    "You’re enough",
-    "You make me stay",
-    "I just love you 💜",
+<!-- HERO -->
+<div class="section center">
+  <h1>Happy Birthday Babbyyyyyyy 😚🎉</h1>
+  <h2>My one and only 💜</h2>
+  <h3>D.I.N.E.R.O</h3>
+  <p>Delightful, Irresistible, Noble, Energetic, Radiates charm, One and only for me 💖</p>
+</div>
+
+<!-- PICTURE SECTION -->
+<div class="section center">
+  <img src="https://raw.githubusercontent.com/omolayoferanmi945-debug/Hisssme/main/IMG-20260202-WA0054.jpg" alt="My Sweet Man">
+  <h3>My sweet man 😏💖</h3>
+</div>
+
+<!-- VOICE NOTE -->
+<div class="section center">
+  <button onclick="playVoice()">Come closer… I have something for you 😏💜</button>
+  <audio id="voice" src="https://raw.githubusercontent.com/omolayoferanmi945-debug/Hisssme/main/birthday_vn"></audio>
+</div>
+
+<!-- MAIN MESSAGE -->
+<div class="section">
+  <p>Happy birthday baby 💜 Even tho this hasn't been the way I planned it, I just want you to know that you deserve the world…</p>
+  <p>Don’t worry we will all be comfortable living in space 🌚 so you can have the world to yourself.</p>
+  <p>You such a great and sweet human tho you make me doubt that sometimes… that’s what makes everything feel so real.</p>
+  <p>Thank you for always showing up… at your time, in your way… thank you for being you.</p>
+  <p>My brief meeting with you made me realize how ambitious you are, how you prioritize your goals, and how far you’ve come to be 30.</p>
+  <p>And honestly… I admire you more than I say out loud.</p>
+  <p>I pray our bond grows like peptide bonds… strong, unbreakable, and lasting 💜</p>
+</div>
+
+<!-- THE MAN HE IS -->
+<div class="section">
+  <h2>The Man You Are at 30</h2>
+  <ul>
+    <li>Focused</li>
+    <li>Intentional</li>
+    <li>Confident</li>
+    <li>You know what you want… and you go for it</li>
+    <li>You really like yourself… and honestly, you have every reason to 😌</li>
+  </ul>
+</div>
+
+<!-- BUTTONS / INTERACTIVE SECTIONS -->
+<div class="section center">
+  <button onclick="showSection('reasons')">💖 50 Reasons I Love You</button>
+  <button onclick="showSection('prayers')">🙏 Prayers</button>
+  <button onclick="showSection('flirty')">😏 Flirty & Playful</button>
+  <button onclick="showSection('loveDo')">💋 What I Love When You Do…</button>
+  <button onclick="showSection('selfCare')">🌱 Things You Should Do More</button>
+  <button onclick="showSection('withYou')">💞 With You… I Want</button>
+  <button onclick="showSection('longing')">🫂 The Way I Miss You Sometimes</button>
+  <button onclick="showSection('gift')">🎁 Surprise / Fake Gift</button>
+</div>
+
+<!-- 50 REASONS -->
+<div id="reasons" class="section" style="display:none;">
+  <h2>50 Reasons I Love You</h2>
+  <ul>
+    <li>You make me feel things I can’t explain</li>
+    <li>You challenge me</li>
+    <li>You make me blush 😏</li>
+    <li>You’re ambitious</li>
+    <li>You’re soft in your own way</li>
+    <li>You make love feel real</li>
+    <li>You smell amazing 💜</li>
+    <li>You inspire me</li>
+    <li>You’re playful</li>
+    <li>You always surprise me</li>
+    <!-- continue all 50 reasons here -->
+  </ul>
+</div>
+
+<!-- PRAYERS -->
+<div id="prayers" class="section" style="display:none;">
+  <h2>Prayers for You 💜</h2>
+  <ul>
+    <li>I pray for your health</li>
+    <li>I pray for your wealth</li>
+    <li>I pray for your success</li>
+    <li>I pray for your happiness</li>
+    <li>I pray for your love</li>
+    <li>I pray for your growth</li>
+    <li>I pray for your past — that it never holds you back</li>
+    <li>I pray for your present — that you find peace</li>
+    <li>I pray for your future — that it becomes everything you deserve 💜</li>
+    <li>I pray that your ambitions always lead you to joy</li>
+    <li>I pray our bond strengthens every day</li>
+  </ul>
+</div>
+
+<!-- FLIRTY / PLAYFUL -->
+<div id="flirty" class="section" style="display:none;">
+  <h2>Flirty & Playful 😏</h2>
+  <ul>
+    <li>Come closer 😏</li>
+    <li>Stop being so irresistible</li>
+    <li>You make me blush more than I admit</li>
+    <li>You’re mine… behave 💋</li>
+    <li>Don’t act like you don’t like me</li>
+    <li>I enjoyed every moment we were close… yes, all of it 😏💜</li>
+  </ul>
+</div>
+
+<!-- WHAT I LOVE WHEN YOU DO -->
+<div id="loveDo" class="section" style="display:none;">
+  <h2>What I Love When You Do… 💋</h2>
+  <ul>
+    <li>I love when you look at me like that</li>
+    <li>I love when you’re soft with me</li>
+    <li>I love when you show effort</li>
+    <li>I love when you make me feel like I matter</li>
+    <li>I love your smell… it stays with me 💜</li>
+  </ul>
+</div>
+
+<!-- THINGS YOU SHOULD DO MORE -->
+<div id="selfCare" class="section" style="display:none;">
+  <h2>Things You Should Do More 🌱</h2>
+  <ul>
+    <li>Take care of yourself</li>
+    <li>Rest</li>
+    <li>Go out</li>
+    <li>Have fun</li>
+    <li>Explore your hobbies</li>
+    <li>Sleep better 😴</li>
+    <li>Protect your peace</li>
+  </ul>
+</div>
+
+<!-- WITH YOU… I WANT -->
+<div id="withYou" class="section" style="display:none;">
+  <h2>With You… I Want 💞</h2>
+  <ul>
+    <li>Spend more time with me 💖</li>
+    <li>More dates</li>
+    <li>More memories</li>
+    <li>More intentional moments</li>
+    <li>More softness</li>
+    <li>Just… more of us</li>
+  </ul>
+</div>
+
+<!-- LONGING / EMOTIONAL -->
+<div id="longing" class="section" style="display:none;">
+  <h2>The Way I Miss You Sometimes 🫂</h2>
+  <p>Sometimes I miss you in ways I don’t even say</p>
+  <p>I want your presence… your warmth</p>
+  <p>I think about you more than I admit</p>
+  <p>And sometimes… I just want you, simply and completely 💜</p>
+</div>
+
+<!-- FAKE / SURPRISE GIFT -->
+<div id="gift" class="section" style="display:none;">
+  <h2>🎁 Surprise / Fake Gift</h2>
+  <ul>
+    <li>A lifetime of my attention 😏💜</li>
+    <li>Your favorite kisses 💋</li>
+    <li>Unlimited hugs 🫂</li>
+    <li>A private concert of your favorite songs 🎶</li>
+  </ul>
+</div>
+
+<!-- FINAL CLOSING -->
+<div class="section center">
+  <h2>I love you to the moon and back 🌙💜</h2>
+  <h3>And if I could… I’d buy the whole world just for you 🌍</h3>
+</div>
+
+<!-- POPUPS -->
+<div id="popup" class="popup">
+  <p id="popup-text">You thought I was done? 😏💜</p>
+  <span class="close" onclick="closePopup()">Close</span>
+</div>
+
+<script>
+  // Voice note play
+  function playVoice() {
+    const audio = document.getElementById('voice');
+    audio.play();
+  }
+
+  // Show section
+  function showSection(id) {
+    const sections = ['reasons','prayers','flirty','loveDo','selfCare','withYou','longing','gift'];
+    sections.forEach(s => {
+      document.getElementById(s).style.display = (s === id ? 'block' : 'none');
+    });
+    showPopup(id);
+  }
+
+  // Popup messages
+  const popupMessages = [
+    "You thought I was done? 😏💜",
+    "Come here… I’m not finished with you yet 💋",
+    "You mean more to me than I say",
+    "You’re special… don’t forget that"
   ];
 
-  return (
-    <div className="w-full h-screen bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-300 overflow-hidden">
+  function showPopup(sectionId){
+    const popup = document.getElementById('popup');
+    const text = document.getElementById('popup-text');
+    const msg = popupMessages[Math.floor(Math.random()*popupMessages.length)];
+    text.textContent = msg;
+    popup.style.display = 'block';
+    setTimeout(()=>{ popup.style.display='none'; },4000);
+  }
+  function closePopup(){ document.getElementById('popup').style.display='none'; }
 
-// App.jsx
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Float, Text } from "@react-three/drei";
-import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
-import Confetti from "./Confetti";
-import Sparkles from "./Sparkles";
+  // Confetti
+  for(let i=0;i<50;i++){
+    let c=document.createElement('div');
+    c.classList.add('confetti-piece');
+    c.style.left=Math.random()*window.innerWidth+'px';
+    c.style.backgroundColor=['#ff8fc0','#ff5fa1','#ffc0cb','#ffe6f0'][Math.floor(Math.random()*4)];
+    c.style.animationDuration=2+Math.random()*3+'s';
+    document.body.appendChild(c);
+  }
 
-// Floating hearts in 3D
-function FloatingHearts() {
-  return (
-    <group>
-      {Array.from({ length: 25 }).map((_, i) => (
-        <Float key={i} speed={2} rotationIntensity={2} floatIntensity={4}>
-          <mesh
-            position={[
-              Math.random() * 8 - 4,
-              Math.random() * 6 - 3,
-              Math.random() * -6,
-            ]}
-          >
-            <sphereGeometry args={[0.2, 32, 32]} />
-            <meshStandardMaterial color="#ff4da6" />
-          </mesh>
-        </Float>
-      ))}
-    </group>
-  );
-}
-
-// 3D birthday text
-function BirthdayText() {
-  return (
-    <Float>
-      <Text fontSize={0.6} color="#ffffff" anchorX="center" anchorY="middle">
-        Happy 30th Dinero 🎉
-      </Text>
-    </Float>
-  );
-}
-
-export default function App() {
-  const [view, setView] = useState(null);
-  const voiceRef = useRef(null);
-
-  useEffect(() => {
-    if (view === "voice") {
-      voiceRef.current.play();
+  // Floating hearts
+  setInterval(()=>{
+    let heart=document.createElement('div');
+    heart.classList.add('floating-heart');
+    heart.style.left=Math.random()*window.innerWidth+'px';
+    heart.style.width=20+Math.random()*20+'px';
+    heart.style.height=20+Math.random()*20+'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+  },500);
+</script>
+</body>
+</html>￼Enter      border-radius: 20px;
+      box-shadow: 0 0 30px pink;
+      margin: 20px 0;
     }
-  }, [view]);
-
-  // 50 reasons why you love him
-  const reasons = [
-    "You make me feel safe 💜",
-    "Your ambition inspires me",
-    "You show up in your own way",
-    "You make me smile unexpectedly",
-    "Your mind is attractive",
-    "You challenge me",
-    "You make me feel wanted",
-    "Your growth is beautiful",
-    "You are soft even when you hide it",
-    "You’re different in a good way",
-    "You make me think deeper",
-    "You’re unpredictable 😏",
-    "You care even when you’re quiet",
-    "You make effort",
-    "You listen sometimes 😂",
-    "You make memories feel special",
-    "You’re strong",
-    "You’re focused",
-    "You make me feel deeply",
-    "You’re worth it",
-    "You make love feel real",
-    "You’re growing",
-    "You don’t give up",
-    "You’re intentional",
-    "You make me soft",
-    "You make me laugh",
-    "You’re calm when needed",
-    "You’re fire when needed",
-    "You balance me",
-    "You’re mine 😏",
-    "You try",
-    "You’re unique",
-    "You’re becoming great",
-    "You’re patient",
-    "You’re worth loving",
-    "You make me dream",
-    "You’re my sweet man 💖",
-    "You’re real",
-    "You’re imperfectly perfect",
-    "You’re worth waiting for",
-    "You make me curious",
-    "You’re an experience",
-    "You make me feel seen",
-    "You make me want more",
-    "You’re my peace",
-    "You’re my chaos",
-    "You make love interesting",
-    "You’re enough",
-    "You make me stay",
-    "I just love you 💜",
-  ];
-
-  return (
-    <div className="w-full h-screen bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-300 overflow-hidden">
-
-      {/* Background Music */}
-      <audio
-        src="https://raw.githubusercontent.com/omolayoferanmi945-debug/Hisssme/main/music.mp3" 
-        loop
-        autoPlay
-        className="hidden"
-      />
-
-      {/* Header */}
-      <div className="absolute top-0 left-0 w-full flex justify-center p-6 z-10">
-        <h1 className="text-2xl font-bold text-white">💖 My Sweet Man 💖</h1>
-      </div>
-
-      {/* 3D Canvas */}
-      <Canvas>
-        <ambientLight intensity={0.8} />
-        <directionalLight position={[5, 5, 5]} />
-        <BirthdayText />
-        <FloatingHearts />
-        <Confetti count={80} />  {/* Confetti effect */}
-        <Sparkles count={60} />  {/* Sparkles effect */}
-        <OrbitControls enableZoom={false} />
-      </Canvas>
-
-      {/* Dinero's Picture */}
-      <div className="absolute top-20 right-4 z-10">
-        <img
-          src="https://raw.githubusercontent.com/omolayoferanmi945-debug/Hisssme/main/IMG-20260202-WA0054.jpg"
-          alt="Dinero"
-          className="w-48 rounded-3xl shadow-lg"
-        />
-      </div>
-
-      {/* Buttons */}
-      <div className="absolute bottom-28 w-full flex flex-wrap justify-center gap-3 z-10 px-4">
-        <button onClick={() => setView("message")} className="bg-white px-4 py-2 rounded-2xl">💌 Message</button>
-        <button onClick={() => setView("reasons")} className="bg-black text-white px-4 py-2 rounded-2xl">💖 50 Reasons</button>
-        <button onClick={() => setView("prayer")} className="bg-pink-500 text-white px-4 py-2 rounded-2xl">🙏 Prayer</button>
-        <button onClick={() => setView("future")} className="bg-purple-600 text-white px-4 py-2 rounded-2xl">💞 Us</button>
-        <button onClick={() => setView("more")} className="bg-indigo-600 text-white px-4 py-2 rounded-2xl">😏 Us More</button>
-        <button onClick={() => setView("self")} className="bg-green-600 text-white px-4 py-2 rounded-2xl">🌱 You More</button>
-        <button onClick={() => setView("gifts")} className="bg-yellow-400 px-4 py-2 rounded-2xl">🎁 Gifts</button>
-        <button onClick={() => setView("voice")} className="bg-red-400 px-4 py-2 rounded-2xl">🎤 Voice Note</button>
-      </div>
-
-      {/* Modal */}
-      {view && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 bg-black/80 overflow-y-auto p-6">
-          <div className="text-white max-w-xl mx-auto text-center">
-
-            {view === "voice" && (
-              <div>
-                <p>Tap to hear me baby 😏💜</p>
-                <audio ref={voiceRef} controls src="https://raw.githubusercontent.com/omolayoferanmi945-debug/Hisssme/main/birthday_vn" />
-              </div>
-            )}
-
-            {view === "message" && (
-              <p>
-                Happy birthday baby 🎂💜... I love you endlessly and I’d buy the world for you if I could 💕
-              </p>
-            )}
-
-            {view === "reasons" && <>{reasons.map((r, i) => <p key={i}>{r}</p>)}</>}
-
-            {view === "prayer" && (
-              <p>
-                I pray your life opens beautifully… peace, success, love, and everything good finds you 💜
-              </p>
-            )}
-
-            {view === "future" && (
-              <p>
-                I want growth, softness, deep connection, laughter, peace, and a forever kind of love with you 💞
-              </p>
-            )}
-
-            {view === "more" && (
-              <p>
-                Kiss me more 😏 call me more… spend time with me… remind me I’m yours 💋
-              </p>
-            )}
-
-            {view === "self" && (
-              <p>
-                Take care of yourself more… rest when needed, chase your dreams harder, believe in yourself always, protect your peace, and never forget how amazing you are 🌱💜
-              </p>
-            )}
-
-            {view === "gifts" && (
-              <p>
-                🎁 Open this: You get unlimited kisses 😏💋 and a date with me anytime you want 💕
-              </p>
-            )}
-
-            <button onClick={() => setView(null)} className="mt-6 bg-white text-black px-4 py-2 rounded-xl">Close</button>
-          </div>
-        </motion.div>
-      )}
-
-      <div className="absolute bottom-5 w-full text-center text-white text-sm">
-        Explore me baby 😏💫
-      </div>
-    </div>
-  );
-}￼Enter  </p>
-            )}
-
-            {view === "gifts" && (
-              <p>
-                🎁 Open this: You get unlimited kisses 😏💋 and a date with me anytime you want 💕
-              </p>
-            )}
-
-            <button onClick={() => setView(null)} className="mt-6 bg-white text-black px-4 py-2 rounded-xl">Close</button>
-          </div>
-        </motion.div>
-      )}
-
-      <div className="absolute bottom-5 w-full text-center text-white text-sm">
-        Explore me baby 😏💫
-      </div>
-    </div>
-  );
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+      background: #ff8fc0;
+      color: white;
+      transition: 0.3s;
     }
+    button:hover {
+      background: #ff5fa1;
+      transform: scale(1.05);
+    }
+    .section {
+      padding: 30px 20px;
+      margin: 20px auto;
+      max-width: 900px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 20px;
+      box-shadow: 0 0 20px pink;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff0f5;
+      padding: 30px;
+      border-radius: 20px;
+      display: none;
+      z-index: 9999;
+      text-align: center;
+      box-shadow: 0 0 40px pink;
+    }
+    .close {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 15px;
+      display: inline-block;
+      color: #ff5fa1;
+    }
+    .floating-heart {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/cover;
+      pointer-events: none;
+      animation: float 5s linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg);}
+      100% { transform: translateY(-1000px) rotate(360deg);}
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: pink;
+      opacity: 0.8;
+      pointer-events: none;
+      animation: confetti-fall linear infinite;
+    }
+    @keyframes confetti-fall {
+      0% { transform: translateY(-10px) rotate(0deg);}
+      100% { transform: translateY(100vh) rotate(360deg);}
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="section center">
+  <h1>Happy Birthday Babbyyyyyyy 😚🎉</h1>
+  <h2>My one and only 💜</h2>
+  <h3>D.I.N.E.R.O</h3>
+  <p>Delightful, Irresistible, Noble, Energetic, Radiates charm, One and only for me 💖</p>
+</div>
+
+<!-- PICTURE SECTION -->
+<div class="section center">
+  <img src="https://raw.githubusercontent.com/omolayoferanmi945-debug/Hisssme/main/IMG-20260202-WA0054.jpg" alt="My Sweet Man">
+  <h3>My sweet man 😏💖</h3>
+</div>
+
+<!-- VOICE NOTE -->
+<div class="section center">
+  <button onclick="playVoice()">Come closer… I have something for you 😏💜</button>
+  <audio id="voice" src="https://raw.githubusercontent.com/omolayoferanmi945-debug/Hisssme/main/birthday_vn"></audio>
+</div>
+
+<!-- MAIN MESSAGE -->
+lass="section">
+  <p>Happy birthday baby 💜 Even tho this hasn't been the way I planned it, I just want you to know that you deserve the world…</p>
+  <p>Don’t worry we will all be comfortable living in space 🌚 so you can have the world to yourself.</p>
+  <p>You such a great and sweet human tho you make me doubt that sometimes… that’s what makes everything feel so real.</p>
+  <p>Thank you for always showing up… at your time, in your way… thank you for being you.</p>
+  <p>My brief meeting with you made me realize how ambitious you are, how you prioritize your goals, and how far you’ve come to be 30.</p>
+  <p>And honestly… I admire you more than I say out loud.</p>
+  <p>I pray our bond grows like peptide bonds… strong, unbreakable, and lasting 💜</p>
+</div>
+
+<!-- THE MAN HE IS -->
+<div class="section">
+  <h2>The Man You Are at 30</h2>
+  <ul>
+    <li>Focused</li>
+    <li>Intentional</li>
+    <li>Confident</li>
+    <li>You know what you want… and you go for it</li>
+    <li>You really like yourself… and honestly, you have every reason to 😌</li>
+  </ul>
+</div>
+
+<!-- BUTTONS / INTERACTIVE SECTIONS -->
+<div class="section center">
+  <button onclick="showSection('reasons')">💖 50 Reasons I Love You</button>
+  <button onclick="showSection('prayers')">🙏 Prayers</button>
+  <button onclick="showSection('flirty')">😏 Flirty & Playful</button>
+  <button onclick="showSection('loveDo')">💋 What I Love When You Do…</button>
+  <button onclick="showSection('selfCare')">🌱 Things You Should Do More</button>
+  <button onclick="showSection('withYou')">💞 With You… I Want</button>
+  <button onclick="showSection('longing')">🫂 The Way I Miss You Sometimes</button>
+  <button onclick="showSection('gift')">🎁 Surprise / Fake Gift</button>
+</div>
+
+<!-- 50 REASONS -->
+<div id="reasons" class="section" style="display:none;">
+  <h2>50 Reasons I Love You</h2>
+  <ul>
+    <li>You make me feel things I can’t explain</li>
+    <li>You challenge me</li>
+    <li>You make me blush 😏</li>
+    <li>You’re ambitious</li>
+    <li>You’re soft in your own way</li>
+    <li>You make love feel real</li>
+    <li>You smell amazing 💜</li>
+    <li>You inspire me</li>
+    <li>You’re playful</li>
+    <li>You always surprise me</li>
+    <!-- continue all 50 reasons here -->
+  </ul>
+</div>
+
+<!-- PRAYERS -->
+<div id="prayers" class="section" style="display:none;">
+  <h2>Prayers for You 💜</h2>
+  <ul>
+    <li>I pray for your health</li>
+    <li>I pray for your wealth</li>
+    <li>I pray for your success</li>
+    <li>I pray for your happiness</li>
+    <li>I pray for your love</li>
+    <li>I pray for your growth</li>
+    <li>I pray for your past — that it never holds you back</li>
+    <li>I pray for your present — that you find peace</li>
+    <li>I pray for your future — that it becomes everything you deserve 💜</li>
+    <li>I pray that your ambitions always lead you to joy</li>
+    <li>I pray our bond strengthens every day</li>
+  </ul>
+</div>
+
+<!-- FLIRTY / PLAYFUL -->
+<div id="flirty" class="section" style="display:none;">
+  <h2>Flirty & Playful 😏</h2>
+  <ul>
+    <li>Come closer 😏</li>
+    <li>Stop being so irresistible</li>
+    <li>You make me blush more than I admit</li>
+    <li>You’re mine… behave 💋</li>
+    <li>Don’t act like you don’t like me</li>
+    <li>I enjoyed every moment we were close… yes, all of it 😏💜</li>
+  </ul>
+</div>
+
+<!-- WHAT I LOVE WHEN YOU DO -->
+<div id="loveDo" class="section" style="display:none;">
+  <h2>What I Love When You Do… 💋</h2>
+  <ul>
+    <li>I love when you look at me like that</li>
+    <li>I love when you’re soft with me</li>
+    <li>I love when you show effort</li>
+    <li>I love when you make me feel like I matter</li>
+    <li>I love your smell… it stays with me 💜</li>
+  </ul>
+</div>
+
+<!-- THINGS YOU SHOULD DO MORE -->
+<div id="selfCare" class="section" style="display:none;">
+  <h2>Things You Should Do More 🌱</h2>
+  <ul>
+    <li>Take care of yourself</li>
+    <li>Rest</li>
+    <li>Go out</li>
+    <li>Have fun</li>
+    <li>Explore your hobbies</li>
+    <li>Sleep better 😴</li>
